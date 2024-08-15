@@ -1,0 +1,37 @@
+Basic Device Config
+
+Router>enable
+Router#configure terminal
+Router(config)#hostname mia
+mia(config)#username pfc.zamora privilege 15 secret TEST
+mia(config)#SERVICE password-encryption
+mia(config)#banner motd "hello world"
+mia(config)#enable secret TEST
+mia(config)#LIN CON 0
+mia(config-line)#login local
+mia(config-line)#logging sync
+mia(config-line)#logging synchronous
+mia(config-line)#EXEC-timeout 4 59
+mia(config-line)#exit
+mia(config)#ip domain-name NAC21.USMC.MIL
+mia(config)#Crypto key generate rsa
+How many bits in the modulus [512]: 2048
+mia(config)#ip ssh verison 2	
+mia(config)#ip ssh authentication-retries 3
+mia(config)#ip ssh time-out 120
+mia(config)#Line VTY 0 15
+mia(config-line)#login local
+mia(config-line)#logging synchronous
+mia(config-line)#Exec-timeout 2 0
+mia(config-line)#Transport input ssh
+mia(config-line)#Transport output ssh
+
+Configure(gateway switch 2 only)
+mia(config-line)exit
+mia(config)#ip default-gateway 192.168.0.1
+
+Saving
+mia(config-line)#exit
+mia(config)#exit
+mia#copy running-config startup-config
+mia#show run
